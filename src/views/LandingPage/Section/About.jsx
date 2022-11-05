@@ -98,11 +98,13 @@ const About = (props) => {
           <div className={styleClass.h4}>
             <div className={styleClass.contact}>
               <Email />
-              <Link className={styleClass.button}>support@gmail.com</Link>
+              <Link className={styleClass.button}>
+                cryptoarbitrage0@gmail.com
+              </Link>
             </div>
             <div className={styleClass.contact}>
               <Phone />
-              <Link className={styleClass.button}>+234 8069710658</Link>
+              <Link className={styleClass.button}>+549233749</Link>
             </div>
             <div className={styleClass.contact}>
               <Twitter />

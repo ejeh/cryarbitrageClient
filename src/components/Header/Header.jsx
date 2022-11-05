@@ -40,7 +40,7 @@ const useStyle = makeStyles((theme) => ({
     display: "none",
   },
   buttonCollapse: {
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.down("sm")]: {
       display: "none",
     },
   },
