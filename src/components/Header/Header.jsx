@@ -24,7 +24,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 const drawerWidth = 240;
 const useStyle = makeStyles((theme) => ({
   menu: {
-    [theme.breakpoints.only("lg")]: {
+    [theme.breakpoints.up("md")]: {
       display: "none",
     },
   },
