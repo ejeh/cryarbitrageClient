@@ -3,7 +3,7 @@ import GridContainer from "../../components/Grid/GridContainer";
 import GridItem from "../../components/Grid/GridItem";
 import Header from "../../components/Header/Header";
 import { makeStyles } from "@material-ui/core";
-import Dark from "../../assets/img/dylan.jpg";
+import Dark from "../../assets/img/arbitrage3.jpg";
 import Details from "../LandingPage/Section/Details";
 import About from "./Section/About";
 import Footer from "../../components/Footer/Footer";
@@ -30,18 +30,17 @@ const useStyle = makeStyles((theme) => ({
     backgroundImage: `url("${Dark}")`,
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center center",
-    backgroundSize: "cover",
+    backgroundSize: "100% 100%",
     // paddingTop: "120px",
     paddingBottom: "120px",
-    // opacity: 0.9,
+    // opacity: 1,
     marginRight: "0px",
     marginLeft: "0px",
     height: "100vh",
-    // width:"100vw"
   },
   h1: {
     [theme.breakpoints.down("sm")]: {
-      fontSize: "3.0em",
+      fontSize: "2.5em",
     },
 
     [`${theme.breakpoints.only("sm")} and (orientation: landscape)`]: {
@@ -59,6 +58,7 @@ const useStyle = makeStyles((theme) => ({
     fontFamily: "cursive",
     transform: "translateY(300px)",
     animation: "$slidUp .9s ease-in-out forwards .9s",
+    zIndex: 5,
   },
   "@keyframes slidUp": {
     "0%": {
@@ -86,9 +86,9 @@ const LandingPage = () => {
         </GridItem>
         <GridItem md={6} sm={6} xs={12}>
           <h1 className={classes.h1}>
-            Crypto Arbitrage
+            A Crypto To Crypto
             <br />
-            Opportunities
+            Infrastructure
           </h1>
         </GridItem>
       </GridContainer>
