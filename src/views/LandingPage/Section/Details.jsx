@@ -7,7 +7,7 @@ import ShopIcon from "@material-ui/icons/Shop";
 import Receipt from "@material-ui/icons/Receipt";
 import AccountBalance from "@material-ui/icons/AccountBalance";
 
-// import Trading from "../../../assets/img/maxim.jpg";
+import Image from "../../../assets/img/cryptoImg.jpg";
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -102,7 +102,7 @@ const Details = (props) => {
           </h4>
         </GridItem>
         <GridItem xs={12} sm={5} ma={5}>
-          <img src="" alt="trading" height="60%" width="50%" />
+          <img src={Image} alt="trading" height="100%" width="100%" />
         </GridItem>
       </GridContainer>
     </div>

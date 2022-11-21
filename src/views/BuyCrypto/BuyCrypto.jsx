@@ -27,6 +27,7 @@ const useStyles = (theme) => ({
     paddingTop: "25px",
     // opacity: 0.9,
   },
+
   content: {
     color: "#cbdffd",
     marginTop: "45px",

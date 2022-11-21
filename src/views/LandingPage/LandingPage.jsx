@@ -37,10 +37,11 @@ const useStyle = makeStyles((theme) => ({
     marginRight: "0px",
     marginLeft: "0px",
     height: "100vh",
+    // width:"100vw"
   },
   h1: {
     [theme.breakpoints.down("sm")]: {
-      fontSize: "2.0em",
+      fontSize: "3.0em",
     },
 
     [`${theme.breakpoints.only("sm")} and (orientation: landscape)`]: {
@@ -85,8 +86,9 @@ const LandingPage = () => {
         </GridItem>
         <GridItem md={6} sm={6} xs={12}>
           <h1 className={classes.h1}>
-            <span className={classes.span}>A WorldWide Cryto To Cryto </span>
-            Infrastructure
+            Crypto Arbitrage
+            <br />
+            Opportunities
           </h1>
         </GridItem>
       </GridContainer>
