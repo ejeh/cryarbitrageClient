@@ -3,7 +3,7 @@ import GridContainer from "../../components/Grid/GridContainer";
 import GridItem from "../../components/Grid/GridItem";
 import Header from "../../components/Header/Header";
 import { makeStyles } from "@material-ui/core";
-import Dark from "../../assets/img/arbitrage3.jpg";
+import Dark from "../../assets/img/arbitrage4.jpg";
 import Details from "../LandingPage/Section/Details";
 import About from "./Section/About";
 import Footer from "../../components/Footer/Footer";
@@ -50,12 +50,12 @@ const useStyle = makeStyles((theme) => ({
     textAlign: "center",
     opacity: 0,
     color: "#cbdffd",
-    fontWeight: "600",
+    fontWeight: 600,
     fontSize: "3.8em",
     lineHeight: "1.222",
     marginTop: "50px",
     textTransform: "capitalize",
-    fontFamily: "cursive",
+    fontFamily: " Arial, Helvetica, sans-serif",
     transform: "translateY(300px)",
     animation: "$slidUp .9s ease-in-out forwards .9s",
     zIndex: 5,
