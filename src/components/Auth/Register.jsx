@@ -284,7 +284,7 @@ class Register extends Component {
           >
             <GridContainer>
               <GridItem md={12} sm={12}>
-                Agent Near Me
+                Cryptoarbitrage
               </GridItem>
             </GridContainer>
           </DialogTitle>

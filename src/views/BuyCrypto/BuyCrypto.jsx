@@ -10,7 +10,6 @@ import { buyCryto } from "../../actions/action_buycryto";
 import { connect } from "react-redux";
 import MysnackBar from "../../components/SnackBar";
 import Snackbar from "@material-ui/core/Snackbar";
-import ToolTip from "@material-ui/core/Tooltip";
 
 const useStyles = (theme) => ({
   root: {
@@ -50,8 +49,8 @@ const initialState = {
   tron: "",
   bnb: "",
   ts_hash: "",
-  copybep20: "click to copy",
-  copytrc20: "click to copy",
+  copybep20: "copy address",
+  copytrc20: "copy address",
   open: false,
   snackBarOpen: false,
   snackBarMessage: "",
@@ -178,24 +177,36 @@ class BuyCrypto extends Component {
                   usdt trc20 with the second address.
                 </p>
                 <br />
-                <ToolTip
-                  title={copybep20}
-                  onClick={() =>
-                    this.copybep20("0x1f2748f6c444dacffae794147bb29ad542647c00")
-                  }
-                >
+                <div>
                   <p>Usdt Bep20 0x0Be6564Df836e2f0C28d712147c94bCa5B6482b7</p>
-                </ToolTip>
+
+                  <Button
+                    color="primary"
+                    variant="outlined"
+                    onClick={() =>
+                      this.copybep20(
+                        "0x1f2748f6c444dacffae794147bb29ad542647c00"
+                      )
+                    }
+                  >
+                    {copybep20}
+                  </Button>
+                </div>
 
                 <br />
-                <ToolTip
-                  title={copytrc20}
-                  onClick={() =>
-                    this.copytrc20("TQmoKNWKJ5sK5j8sPF771gmqHqnBQ56riE")
-                  }
-                >
+
+                <div>
                   <p>Usdt Trc20 TKoKBGnhSRd9i8PTvhtdCjFd9nfUxJ8z8m</p>
-                </ToolTip>
+                  <Button
+                    color="primary"
+                    variant="outlined"
+                    onClick={() =>
+                      this.copytrc20("TQmoKNWKJ5sK5j8sPF771gmqHqnBQ56riE")
+                    }
+                  >
+                    {copytrc20}
+                  </Button>
+                </div>
 
                 <br />
 
