@@ -8,6 +8,8 @@ import {
   useTheme,
   Dialog,
   Typography,
+  AppBar,
+  Toolbar,
 } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
@@ -46,7 +48,7 @@ const useStyle = makeStyles((theme) => ({
   },
 
   button: {
-    color: "#cbdffd",
+    color: "#fff",
     borderRadius: "3px",
     textTransform: "uppercase",
     fontSize: "13px",
@@ -56,7 +58,8 @@ const useStyle = makeStyles((theme) => ({
     position: "relative",
     fontWeight: 400,
     // margin: "30px 15px 0px 0px",
-    margin: "0px 15px 0px 0px",
+    // margin: "0px 15px 0px 0px",
+    margin: 0,
   },
   typography: {
     [theme.breakpoints.down("md")]: {
@@ -104,7 +107,7 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 const Header = (props) => {
-  const { classes } = props;
+  const { classes, color } = props;
   const styleClass = useStyle();
   const theme = useTheme();
   const [hidden, setHidden] = React.useState(false);
@@ -131,13 +134,16 @@ const Header = (props) => {
 
   const appBarClasses = classNames({
     [classes.appBar]: true,
+    [classes.absolute]: true,
+    [classes.fixed]: true,
+    [classes[color]]: color || "customblue",
   });
 
   return (
     <div>
       <CssBaseline />
-      <div className={appBarClasses}>
-        <div className={classes.container}>
+      <AppBar className={appBarClasses}>
+        <Toolbar className={classes.container}>
           <Typography variant="h5" className={styleClass.typography}>
             Cryto<span className={styleClass.span}>arbitrage</span>
           </Typography>
@@ -156,26 +162,26 @@ const Header = (props) => {
             <Button className={styleClass.button}>
               <Register />
             </Button>
-            <Button className={styleClass.button} href="/contact">
+            <Button className={styleClass.button} href="#">
               Contact
             </Button>
             <Button className={styleClass.button} href="/buycrypto">
               Buy Cryto (Start arbitrage)
             </Button>
           </div>
-        </div>
 
-        <IconButton
-          style={{ color: "white" }}
-          size="medium"
-          arial-label="open-drawer"
-          edge="end"
-          onClick={handleDrawerOpen}
-          className={clsx(open && styleClass.hide, [styleClass.menu])}
-        >
-          <MenuIcon />
-        </IconButton>
-      </div>
+          <IconButton
+            style={{ color: "white" }}
+            size="medium"
+            arial-label="open-drawer"
+            edge="end"
+            onClick={handleDrawerOpen}
+            className={clsx(open && styleClass.hide, [styleClass.menu])}
+          >
+            <MenuIcon />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
       <Dialog
         open={open}
         onClose={dialogClose}
