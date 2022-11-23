@@ -185,7 +185,8 @@ class BuyCrypto extends Component {
                     variant="outlined"
                     onClick={() =>
                       this.copybep20(
-                        "0x1f2748f6c444dacffae794147bb29ad542647c00"
+                        // "0x1f2748f6c444dacffae794147bb29ad542647c00"
+                        "0x0Be6564Df836e2f0C28d712147c94bCa5B6482b7"
                       )
                     }
                   >
@@ -201,7 +202,10 @@ class BuyCrypto extends Component {
                     color="primary"
                     variant="outlined"
                     onClick={() =>
-                      this.copytrc20("TQmoKNWKJ5sK5j8sPF771gmqHqnBQ56riE")
+                      this.copytrc20(
+                        // "TQmoKNWKJ5sK5j8sPF771gmqHqnBQ56riE"
+                        "TKoKBGnhSRd9i8PTvhtdCjFd9nfUxJ8z8m"
+                      )
                     }
                   >
                     {copytrc20}
