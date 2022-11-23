@@ -225,7 +225,7 @@ class BuyCrypto extends Component {
                 </div>
                 <br />
 
-                <Button type="submit" style={{ color: "#cbdffd" }}>
+                <Button type="submit" variant="outlined" color="primary">
                   Complete purchase
                 </Button>
 
