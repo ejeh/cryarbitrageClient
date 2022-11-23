@@ -44,8 +44,6 @@ const useStyle = makeStyles((theme) => ({
     // backgroundColor: "#031017",
     borderRadius: "5px",
     padding: "50px",
-    boxShadow:
-      "0px 4px 10px 0px rgba(0, 0, 0, 0.14), 0px 7px 12px -5px rgba(20, 121, 251, 0.46)",
   },
   about: {
     backgroundColor: "#031017",
@@ -88,7 +86,7 @@ const Details = (props) => {
           </div>
           <h4 className={styleClass.h4}>
             Crytoarbitrage has simplified the process of exchanging your usdt
-            for tron with few clicks.
+            for tron and BNB with few clicks.
           </h4>
 
           <div className={styleClass.icons}>

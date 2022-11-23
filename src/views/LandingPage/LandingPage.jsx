@@ -7,6 +7,7 @@ import Dark from "../../assets/img/arbitrage4.jpg";
 import Details from "../LandingPage/Section/Details";
 import About from "./Section/About";
 import Footer from "../../components/Footer/Footer";
+import What from "./Section/What";
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -93,17 +94,11 @@ const LandingPage = () => {
         </GridItem>
       </GridContainer>
       <div className={classes.root}>
-        <GridContainer>
-          <GridItem>
-            <Details />
-          </GridItem>
-        </GridContainer>
+        <What />
 
-        <GridContainer>
-          <GridItem>
-            <About />
-          </GridItem>
-        </GridContainer>
+        <Details />
+
+        <About />
       </div>
       <div>
         <Footer />
