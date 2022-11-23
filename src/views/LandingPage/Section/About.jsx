@@ -1,8 +1,7 @@
 import React from "react";
 import GridContainer from "../../../components/Grid/GridContainer";
 import GridItem from "../../../components/Grid/GridItem";
-import ProductStyle from "../../../assets/jss/material-kit-react/components/productStyle";
-import { withStyles, makeStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import Email from "@material-ui/icons/Email";
 import Phone from "@material-ui/icons/Phone";
 import Twitter from "@material-ui/icons/Twitter";
@@ -48,11 +47,10 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
-const About = (props) => {
+const About = () => {
   const styleClass = useStyle();
-  const { classes } = props;
   return (
-    <div className={classes.section} style={{ paddingBottom: "0px" }}>
+    <div style={{ paddingBottom: "0px", overflow: "hidden" }}>
       <GridContainer className={styleClass.about}>
         <GridItem xs={12} sm={4} md={4}>
           <h3 className={styleClass.h3}>About Us</h3>
@@ -121,4 +119,4 @@ const About = (props) => {
   );
 };
 
-export default withStyles(ProductStyle)(About);
+export default About;

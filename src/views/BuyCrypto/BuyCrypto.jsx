@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
 import About from "../LandingPage/Section/About";
 import Footer from "../../components/Footer/Footer";
 import Grid from "@material-ui/core/Grid";
@@ -12,21 +11,13 @@ import MysnackBar from "../../components/SnackBar";
 import Snackbar from "@material-ui/core/Snackbar";
 
 const useStyles = (theme) => ({
-  root2: {
-    ...theme.mixins.gutters(),
-    // padding: 0,
-    // paddingTop: theme.spacing.unit * 2,
-    // backgroundColor: "#030d0f",
-  },
   img: {
     backgroundColor: "#fff",
     paddingBottom: "120px",
     paddingTop: "25px",
-    // opacity: 0.9,
   },
 
   content: {
-    // color: "#cbdffd",
     marginTop: 70,
     textAlign: "center",
     wordWrap: "break-word",
@@ -248,7 +239,7 @@ class BuyCrypto extends Component {
             </Snackbar>
           </div>
         </Grid>
-        <div className={classes.root2}>
+        <div>
           <About />
         </div>
         <div>

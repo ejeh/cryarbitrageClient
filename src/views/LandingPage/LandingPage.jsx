@@ -1,6 +1,4 @@
 import React from "react";
-import GridContainer from "../../components/Grid/GridContainer";
-import GridItem from "../../components/Grid/GridItem";
 import Header from "../../components/Header/Header";
 import { makeStyles } from "@material-ui/core";
 import Dark from "../../assets/img/arbitrage4.jpg";
@@ -8,14 +6,9 @@ import Details from "../LandingPage/Section/Details";
 import About from "./Section/About";
 import Footer from "../../components/Footer/Footer";
 import What from "./Section/What";
+import Grid from "@material-ui/core/Grid";
 
 const useStyle = makeStyles((theme) => ({
-  root: {
-    ...theme.mixins.gutters(),
-    paddingTop: theme.spacing.unit * 2,
-    // backgroundColor: "#030d0f",
-  },
-
   img: {
     [theme.breakpoints.down("sm")]: {
       marginTop: "0px",
@@ -32,7 +25,6 @@ const useStyle = makeStyles((theme) => ({
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center center",
     backgroundSize: "100% 100%",
-    // paddingTop: "120px",
     paddingBottom: "120px",
     // opacity: 1,
     marginRight: "0px",
@@ -81,23 +73,25 @@ const LandingPage = () => {
   document.title = "Home - cryptoarbitrage";
   return (
     <React.Fragment>
-      <GridContainer className={classes.img}>
-        <GridItem>
+      <Grid container className={classes.img}>
+        <Grid item>
           <Header color="customblue" />
-        </GridItem>
-        <GridItem md={6} sm={6} xs={12}>
+        </Grid>
+        <Grid item md={6} sm={6} xs={12}>
           <h1 className={classes.h1}>
             A Crypto To Crypto
             <br />
             Infrastructure
           </h1>
-        </GridItem>
-      </GridContainer>
+        </Grid>
+      </Grid>
       <What />
+      <div style={{ overflowX: "hidden" }}>
+        <Details />
 
-      <Details />
+        <About />
+      </div>
 
-      <About />
       <div>
         <Footer />
       </div>
