@@ -6,8 +6,9 @@ import { withStyles, makeStyles } from "@material-ui/core";
 import ShopIcon from "@material-ui/icons/Shop";
 import Receipt from "@material-ui/icons/Receipt";
 import AccountBalance from "@material-ui/icons/AccountBalance";
+import Card from "@material-ui/core/Card";
 
-import Image from "../../../assets/img/cryptoImg.jpg";
+import Image from "../../../assets/img/cryptoblue.jpg";
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -23,27 +24,23 @@ const useStyle = makeStyles((theme) => ({
     },
     marginTop: "5px",
     marginBottom: "10px",
-    color: "#cbdffd",
     padding: "0px 10px 10px 10px",
     fontFamily: "none",
     textAlign: "justify",
     fontWeight: 300,
   },
   h3: {
-    color: "#cbdffd",
     margin: "0px",
     textAlign: "left",
     paddingLeft: "10px",
   },
   icons: {
     display: "flex",
-    color: "#844e15",
     marginBottom: "5px",
   },
   GridItem: {
-    // backgroundColor: "#031017",
     borderRadius: "5px",
-    padding: "50px",
+    // padding: "50px",
   },
   about: {
     backgroundColor: "#031017",
@@ -71,33 +68,39 @@ const Details = (props) => {
     <div className={classes.section}>
       <GridContainer>
         <GridItem xs={12} sm={7} md={7} className={styleClass.GridItem}>
-          <div className={styleClass.icons}>
-            <Receipt />
-            <h3 className={styleClass.h3}>Instant Transactions</h3>
-          </div>
-          <h4 className={styleClass.h4}>
-            Transactions with crytoarbitrage are swift and is been efficiently
-            delivered just the way our customers want it.
-          </h4>
+          <Card
+            style={{
+              padding: 30,
+            }}
+          >
+            <div className={styleClass.icons}>
+              <Receipt />
+              <h3 className={styleClass.h3}>Instant Transactions</h3>
+            </div>
+            <h4 className={styleClass.h4}>
+              Transactions with crytoarbitrage are swift and is been efficiently
+              delivered just the way our customers want it.
+            </h4>
 
-          <div className={styleClass.icons}>
-            <AccountBalance />
-            <h3 className={styleClass.h3}>Simple Transactions</h3>
-          </div>
-          <h4 className={styleClass.h4}>
-            Crytoarbitrage has simplified the process of exchanging your usdt
-            for tron and BNB with few clicks.
-          </h4>
+            <div className={styleClass.icons}>
+              <AccountBalance />
+              <h3 className={styleClass.h3}>Simple Transactions</h3>
+            </div>
+            <h4 className={styleClass.h4}>
+              Crytoarbitrage has simplified the process of exchanging your usdt
+              for tron and BNB with few clicks.
+            </h4>
 
-          <div className={styleClass.icons}>
-            <ShopIcon />
-            <h3 className={styleClass.h3}>One Stop-Shop</h3>
-          </div>
-          <h4 className={styleClass.h4}>
-            Crytoabitrage brings an ecosystem of products and services that
-            allow customers to have one stop-shop experience for cryto to cryto
-            transaction.
-          </h4>
+            <div className={styleClass.icons}>
+              <ShopIcon />
+              <h3 className={styleClass.h3}>One Stop-Shop</h3>
+            </div>
+            <h4 className={styleClass.h4}>
+              Crytoabitrage brings an ecosystem of products and services that
+              allow customers to have one stop-shop experience for cryto to
+              cryto transaction.
+            </h4>
+          </Card>
         </GridItem>
         <GridItem xs={12} sm={5} ma={5}>
           <img src={Image} alt="trading" height="100%" width="100%" />

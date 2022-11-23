@@ -13,7 +13,7 @@ const useStyle = makeStyles((theme) => ({
   root: {
     ...theme.mixins.gutters(),
     paddingTop: theme.spacing.unit * 2,
-    backgroundColor: "#030d0f",
+    // backgroundColor: "#030d0f",
   },
 
   img: {
@@ -50,7 +50,7 @@ const useStyle = makeStyles((theme) => ({
 
     textAlign: "center",
     opacity: 0,
-    color: "#cbdffd",
+    color: "#fff",
     fontWeight: 600,
     fontSize: "3.8em",
     lineHeight: "1.222",
@@ -83,7 +83,7 @@ const LandingPage = () => {
     <React.Fragment>
       <GridContainer className={classes.img}>
         <GridItem>
-          <Header />
+          <Header color="customblue" />
         </GridItem>
         <GridItem md={6} sm={6} xs={12}>
           <h1 className={classes.h1}>
@@ -93,13 +93,11 @@ const LandingPage = () => {
           </h1>
         </GridItem>
       </GridContainer>
-      <div className={classes.root}>
-        <What />
+      <What />
 
-        <Details />
+      <Details />
 
-        <About />
-      </div>
+      <About />
       <div>
         <Footer />
       </div>

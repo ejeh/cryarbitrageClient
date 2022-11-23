@@ -12,25 +12,22 @@ import MysnackBar from "../../components/SnackBar";
 import Snackbar from "@material-ui/core/Snackbar";
 
 const useStyles = (theme) => ({
-  root: {
-    display: "flex",
-    paddingTop: "35px",
-  },
   root2: {
     ...theme.mixins.gutters(),
-    paddingTop: theme.spacing.unit * 2,
-    backgroundColor: "#030d0f",
+    // padding: 0,
+    // paddingTop: theme.spacing.unit * 2,
+    // backgroundColor: "#030d0f",
   },
   img: {
-    backgroundColor: "#030d0f",
+    backgroundColor: "#fff",
     paddingBottom: "120px",
     paddingTop: "25px",
     // opacity: 0.9,
   },
 
   content: {
-    color: "#cbdffd",
-    marginTop: "45px",
+    // color: "#cbdffd",
+    marginTop: 70,
     textAlign: "center",
     wordWrap: "break-word",
     fontFamily: "Arial, Helvetica, sans-serif",
@@ -139,11 +136,8 @@ class BuyCrypto extends Component {
     return (
       <>
         <Grid className={classes.img}>
-          <Grid item>
-            <Header />
-          </Grid>
-
-          <Container className={classes.content}>
+          <Header color="customblue" />
+          <div className={classes.content}>
             <form onSubmit={(e) => this.handleSubmit(e, values)}>
               <div>=BNB SMART CHAIN(bsc)</div>
               <input
@@ -185,8 +179,8 @@ class BuyCrypto extends Component {
                     variant="outlined"
                     onClick={() =>
                       this.copybep20(
-                        "0x1f2748f6c444dacffae794147bb29ad542647c00"
-                        // "0x0Be6564Df836e2f0C28d712147c94bCa5B6482b7"
+                        // "0x1f2748f6c444dacffae794147bb29ad542647c00"
+                        "0x0Be6564Df836e2f0C28d712147c94bCa5B6482b7"
                       )
                     }
                   >
@@ -203,8 +197,8 @@ class BuyCrypto extends Component {
                     variant="outlined"
                     onClick={() =>
                       this.copytrc20(
-                        "TQmoKNWKJ5sK5j8sPF771gmqHqnBQ56riE"
-                        // "TKoKBGnhSRd9i8PTvhtdCjFd9nfUxJ8z8m"
+                        // "TQmoKNWKJ5sK5j8sPF771gmqHqnBQ56riE"
+                        "TKoKBGnhSRd9i8PTvhtdCjFd9nfUxJ8z8m"
                       )
                     }
                   >
@@ -252,12 +246,10 @@ class BuyCrypto extends Component {
                 message={snackBarMessage}
               />
             </Snackbar>
-          </Container>
+          </div>
         </Grid>
         <div className={classes.root2}>
-          <Grid container>
-            <About />
-          </Grid>
+          <About />
         </div>
         <div>
           <Footer />
