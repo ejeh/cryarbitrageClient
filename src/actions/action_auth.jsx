@@ -3,12 +3,14 @@ import {
   USER_LOGIN,
   FORGOT_PASSWORD,
   RESET_PASSWORD,
+  REF_SIGNUP,
 } from "./types";
 import { API_KEY, BACKEND_URL } from "./api";
 import {
   setUsersAccount,
   unsetUsersAccount,
 } from "../components/Auth/AccessControl";
+
 export const loadUserSignup = (result) => {
   return {
     type: USER_SIGNUP,
@@ -39,6 +41,43 @@ export const signup = (data, user) => {
     } catch (err) {
       return dispatch(
         loadUserSignup({
+          success: false,
+          data: err.message,
+        })
+      );
+    }
+  };
+};
+export const loadUserRefSignup = (result) => {
+  return {
+    type: REF_SIGNUP,
+    payload: result,
+  };
+};
+
+export const refSignup = (data) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(
+        `${BACKEND_URL}/register?reflink=${data.referralLink}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      const json = await response.json();
+
+      if (json.error) {
+        throw json.error;
+      }
+      return dispatch(loadUserRefSignup(json));
+    } catch (err) {
+      return dispatch(
+        loadUserRefSignup({
           success: false,
           data: err.message,
         })

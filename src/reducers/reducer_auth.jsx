@@ -3,6 +3,7 @@ import {
   USER_LOGIN,
   FORGOT_PASSWORD,
   RESET_PASSWORD,
+  REF_SIGNUP,
 } from "../actions/types";
 
 const INITIALSTATE = {};
@@ -12,6 +13,9 @@ const userAuthReducer = (state = INITIALSTATE, action) => {
   switch (action.type) {
     case USER_SIGNUP:
       output = { ...state, signup: action.payload };
+      break;
+    case REF_SIGNUP:
+      output = { ...state, refSignup: action.payload };
       break;
 
     case USER_LOGIN:

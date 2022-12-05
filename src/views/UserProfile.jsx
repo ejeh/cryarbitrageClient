@@ -27,6 +27,7 @@ import {
 import { getFromLocalStorage } from "../helpers/browserStorage";
 
 import Footer from "../components/Footer/Footer";
+import { API_KEY, BACKEND_URL } from "../actions/api";
 
 const styles = (theme) => ({
   root: {
@@ -104,7 +105,7 @@ const initialstate = {
   imgPreviewUrl: "",
   fallback: true,
   erroMessage: "",
-  // loaded: 0,
+  refLink: "",
 };
 
 class UserProfile extends Component {
@@ -123,7 +124,7 @@ class UserProfile extends Component {
     await fetchUserProfile(
       JSON.parse(getFromLocalStorage("crytoarbitrage-login:user")).profile.id
     );
-    // await this.getImages();
+    await this.getLink();
   }
 
   componentWillReceiveProps(newProps) {
@@ -219,10 +220,33 @@ class UserProfile extends Component {
     };
     reader.readAsDataURL(file);
   };
+  getLink = () => {
+    try {
+      fetch(`${BACKEND_URL}/reflink/?key=${API_KEY}`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          authorization: `Bearer ${
+            JSON.parse(getFromLocalStorage("crytoarbitrage-login:user"))
+              .accessToken
+          }`,
+        },
+        body: JSON.stringify(),
+      })
+        .then((res) => res.json())
+        .then((response) => {
+          this.setState({
+            // refLink: `/register?reflink=${response.data.referralLink}`,
+          });
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   render() {
     document.title = "Profile - cryptoarbitrage";
-
     const { classes } = this.props;
     const {
       firstName,
@@ -236,13 +260,12 @@ class UserProfile extends Component {
       snackBarVariant,
       fallback,
       erroMessage,
-      // loaded,
+      refLink,
     } = this.state;
 
     let $imagePreview = null;
     let images = (
       <img
-        // src={`${BACKEND_URL}/agent/image/${pictures.filename}`}
         src={pictures.image_url}
         alt="..."
         style={{
@@ -413,18 +436,20 @@ class UserProfile extends Component {
                 >
                   Update Profile
                 </Button>
+                <Button variant="outlined" color="primary" href="/buycrypto">
+                  Buy Crypto
+                </Button>
               </CardActions>
             </div>
           </GridItem>
         </Grid>
         <br />
-        <Grid container>
-          <GridItem xs={12} sm={12} md={12}>
-            <Button variant="outlined" color="primary" href="/buycrypto">
-              Buy Crypto
-            </Button>
-          </GridItem>
-        </Grid>
+        <div style={{ textAlign: "center" }}>
+          <Typography variant="caption">
+            {/* Referral Link : <a href={refLink}>{refLink}</a> */}
+          </Typography>
+        </div>
+
         <br />
         <div className={classes.root}>
           <Grid container>

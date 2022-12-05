@@ -1,4 +1,5 @@
 export const USER_SIGNUP = "user_registration";
+export const REF_SIGNUP = "ref_registration";
 export const USER_LOGIN = "user_login";
 export const FORGOT_PASSWORD = "forgot_password";
 export const USER_PROFILE_UPDATE = "user_profile_update";
