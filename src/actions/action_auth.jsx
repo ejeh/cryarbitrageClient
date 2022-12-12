@@ -55,11 +55,11 @@ export const loadUserRefSignup = (result) => {
   };
 };
 
-export const refSignup = (data) => {
+export const refSignup = (data, user, refLink) => {
   return async (dispatch) => {
     try {
       const response = await fetch(
-        `${BACKEND_URL}/register?reflink=${data.referralLink}`,
+        `${BACKEND_URL}/authenticate/email/${user}/signup${refLink}`,
         {
           method: "POST",
           headers: {
@@ -201,5 +201,5 @@ export const resetPassword = (data, user) => {
 
 export const signoutUser = (user) => {
   unsetUsersAccount(user);
-  window.location.reload();
+  window.location.href = "/";
 };

@@ -6,7 +6,7 @@ import Email from "@material-ui/icons/Email";
 import Phone from "@material-ui/icons/Phone";
 import Twitter from "@material-ui/icons/Twitter";
 import Instagram from "@material-ui/icons/Instagram";
-import { Link } from "react-router-dom";
+import Link from "react-router-dom/Link";
 
 const useStyle = makeStyles((theme) => ({
   h4: {
@@ -65,9 +65,9 @@ const About = () => {
           <h3 className={styleClass.h3}>Quick Links</h3>
           <div className={styleClass.h4}>
             <div>
-              <Link to="/" className={styleClass.link}>
+              <a href="/" className={styleClass.link}>
                 Home
-              </Link>
+              </a>
             </div>
             <div>
               <Link to="/" className={styleClass.link}>
@@ -75,9 +75,9 @@ const About = () => {
               </Link>
             </div>
             <div>
-              <Link to="/" className={styleClass.link}>
-                Register
-              </Link>
+              <a href="/register" className={styleClass.link}>
+                Register (Refer & Earn)
+              </a>
             </div>
             <div>
               <Link to="/" className={styleClass.link}>
@@ -85,9 +85,9 @@ const About = () => {
               </Link>
             </div>
             <div>
-              <Link to="/" className={styleClass.link}>
+              <a href="/buycrypto" className={styleClass.link}>
                 Buy Cryto (Start Arbitrage)
-              </Link>
+              </a>
             </div>
           </div>
         </GridItem>

@@ -1,4 +1,8 @@
-import { USER_PROFILE_UPDATE, FETCH_USER_PROFILE } from "./types";
+import {
+  USER_PROFILE_UPDATE,
+  FETCH_USER_PROFILE,
+  FIND_ALL_REF_USER,
+} from "./types";
 import { getFromLocalStorage } from "../helpers/browserStorage";
 import { BACKEND_URL, API_KEY } from "../actions/api";
 import { getUserId } from "../components/Auth/AccessControl";
@@ -76,6 +80,48 @@ export const fetchUserProfile = () => {
     } catch (error) {
       return dispatch(
         loadUserProfile({
+          success: false,
+          data: error.message,
+        })
+      );
+    }
+  };
+};
+
+export const loadAllMyRefUser = (result) => {
+  return {
+    type: FIND_ALL_REF_USER,
+    payload: result,
+  };
+};
+
+export const fetchAllMyReferrals = () => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(
+        `${BACKEND_URL}/referral/${getUserId("user")}/?key=${API_KEY}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            authorization: `Bearer ${
+              JSON.parse(getFromLocalStorage("crytoarbitrage-login:user"))
+                .accessToken
+            }`,
+          },
+          body: JSON.stringify(),
+        }
+      );
+
+      const json = await response.json();
+      if (json.error) {
+        throw json.error;
+      }
+      return dispatch(loadAllMyRefUser(json));
+    } catch (error) {
+      return dispatch(
+        loadAllMyRefUser({
           success: false,
           data: error.message,
         })

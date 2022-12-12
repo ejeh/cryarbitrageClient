@@ -1,28 +1,22 @@
-import React, { Component, Fragment } from "react";
+import React from "react";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 import { Formik } from "formik";
 import { connect } from "react-redux";
-import classnames from "classnames";
 import { refSignup } from "../../actions/action_auth";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";
 import MysnackBar from "../SnackBar";
 import Snackbar from "@material-ui/core/Snackbar";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import Slide from "@material-ui/core/Slide";
-import modalStyle from "../../assets/jss/material-kit-react/components/modalStyle";
-import { withStyles } from "@material-ui/core";
-import GridContainer from "../Grid/GridContainer";
-import GridItem from "../Grid/GridItem";
-import TextField from "@material-ui/core/TextField";
-import Container from "@material-ui/core/Container";
-import { registrationValidationSchema } from "./ValidationSchema";
 import VpnKey from "@material-ui/icons/VpnKey";
 import Email from "@material-ui/icons/Email";
+import Container from "@material-ui/core/Container";
+import Typography from "@material-ui/core/Typography";
+import { registrationValidationSchema } from "./ValidationSchema";
+import { withStyles } from "@material-ui/core";
+import modalStyle from "../../assets/jss/material-kit-react/components/modalStyle";
+import Header from "../Header/Header";
+import About from "../../views/LandingPage/Section/About";
+import Footer from "../Footer/Footer";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { API_KEY, BACKEND_URL } from "../../actions/api";
 
 const initialState = {
   loading: false,
@@ -34,20 +28,21 @@ const initialState = {
   snackBarVariant: "error",
   refLink: "",
 };
-
-const transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="down" ref={ref} {...props} />;
-});
-
-class RefReg extends Component {
+class RefReg extends React.Component {
   state = {
     ...initialState,
   };
-
   clearState = () => {
     this.setState({ ...initialState });
   };
 
+  async componentDidMount() {
+    console.log(this.props.location);
+    const { search } = this.props.location;
+    this.setState({
+      refLink: search,
+    });
+  }
   componentDidUpdate(prevProps) {
     const { userAuth } = this.props;
     if (userAuth.refSignup !== prevProps.userAuth.refSignup) {
@@ -89,43 +84,22 @@ class RefReg extends Component {
       snackBarOpen: false,
     });
   };
-
-  getLink = () => {
-    try {
-      fetch(`${BACKEND_URL}/reflink/?key=${API_KEY}`, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(),
-      })
-        .then((res) => res.json())
-        .then((response) => {
-          this.setState({
-            // refLink: `/register?reflink=${response.data.referralLink}`,
-          });
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   render() {
     let {
       email,
       password,
-      open,
+      refLink,
       loading,
       snackBarMessage,
       snackBarOpen,
       snackBarVariant,
     } = this.state;
-    const { classes, handleDrawerClose } = this.props;
+    const { classes } = this.props;
     email = email.trim();
     password = password.trim();
 
     const values = { email, password };
+
     const Form = (props) => {
       const {
         handleChange,
@@ -145,14 +119,13 @@ class RefReg extends Component {
       const handleSubmit = (values, e) => {
         e.preventDefault();
         const { refSignup } = this.props;
-        refSignup(values, "user");
+        refSignup(values, "user", refLink);
         this.clearState();
         this.setState({
           open: true,
           loading: true,
         });
       };
-
       return (
         <div>
           <form onSubmit={handleSubmit.bind(null, values)}>
@@ -163,6 +136,7 @@ class RefReg extends Component {
                   style={{
                     fontWeight: "bold",
                     fontSize: "60px",
+                    textAlign: "center",
                   }}
                 >
                   <CircularProgress color="secondary" />
@@ -174,7 +148,7 @@ class RefReg extends Component {
               required
               helperText={touched.firstName ? errors.firstName : ""}
               error={touched.firstName && Boolean(errors.firstName)}
-              variant="standard"
+              variant="outlined"
               margin="normal"
               id="firstName"
               label="First Name"
@@ -188,7 +162,7 @@ class RefReg extends Component {
               required
               helperText={touched.lastName ? errors.lastName : ""}
               error={touched.lastName && Boolean(errors.lastName)}
-              variant="standard"
+              variant="outlined"
               margin="normal"
               id="lastName"
               label="Last Name"
@@ -198,12 +172,11 @@ class RefReg extends Component {
               onChange={change.bind(null, "lastName")}
               fullWidth
             />
-
             <TextField
               required
               helperText={touched.email ? errors.email : ""}
               error={touched.email && Boolean(errors.email)}
-              variant="standard"
+              variant="outlined"
               margin="normal"
               id="email"
               label="Email Address"
@@ -221,7 +194,7 @@ class RefReg extends Component {
               required
               helperText={touched.password ? errors.password : ""}
               error={touched.password && Boolean(errors.password)}
-              variant="standard"
+              variant="outlined"
               margin="normal"
               name="password"
               label="Password"
@@ -238,7 +211,7 @@ class RefReg extends Component {
               required
               helperText={touched.confirmPassword ? errors.confirmPassword : ""}
               error={touched.confirmPassword && Boolean(errors.confirmPassword)}
-              variant="standard"
+              variant="outlined"
               margin="normal"
               name="confirmPassword"
               label="Confirm Password"
@@ -255,8 +228,7 @@ class RefReg extends Component {
               type="submit"
               fullWidth
               variant="contained"
-              color="secondary"
-              style={{ fontWeight: "bold" }}
+              style={{ backgroundColor: "#044277", color: "white" }}
               disabled={!isValid}
             >
               Signup
@@ -265,116 +237,43 @@ class RefReg extends Component {
         </div>
       );
     };
-
     return (
-      <Fragment>
-        <div onClick={handleDrawerClose}>
-          <Typography
-            onClick={this.handleClickOpen}
-            style={{
-              fontSize: "12px",
-              lineHeight: "20px",
-              fontWeight: "lighter",
-              margin: "2px",
-              position: "relative",
-            }}
-          >
-            Register
-          </Typography>
-        </div>
-        <Dialog
-          className={classes.modal}
-          style={{ textAlign: "center" }}
-          TransitionComponent={transition}
-          open={open}
-          onClose={this.handleClose}
-          keepMounted
-          aria-labelledby="form-dialog-title"
-          aria-describedby="form-dialog-description"
-          disableBackdropClick
-          disableEscapeKeyDown
+      <div>
+        <Header color="customblue" />
+        <Container
+          component="main"
+          maxWidth="md"
+          style={{ marginBottom: "20px", marginTop: "104px" }}
         >
-          <DialogTitle
-            disableTypography
-            className={classnames(classes.modalHeader, "auth-dialog-header")}
-            style={{
-              borderBottom: "1px solid lightgray",
-              paddingBottom: "10px",
-              fontSize: "1.5625rem",
-              lineHeight: "1.4em",
-            }}
-            id="form-dialog-title"
-          >
-            <GridContainer>
-              <GridItem md={12} sm={12}>
-                Cryptoarbitrage
-              </GridItem>
-            </GridContainer>
-          </DialogTitle>
-          <DialogContent
-            id="form-dialog-description"
-            className={classes.modalBody}
-            style={{ maxWidth: "600px" }}
-          >
-            <Container component="main" maxWidth="xs">
-              <div className={classes.paper}>
-                <Typography component="h1" variant="subtitle1">
-                  Signup With Email
-                </Typography>
-
-                <Formik
-                  initialValues={values}
-                  validationSchema={registrationValidationSchema}
-                >
-                  {(props) => <Form {...props} />}
-                </Formik>
-                <Snackbar
-                  anchorOrigin={{ vertical: "top", horizontal: "center" }}
-                  open={snackBarOpen}
-                  onClose={this.onCloseHandler}
-                >
-                  <MysnackBar
-                    onClose={this.onCloseHandler}
-                    variant={snackBarVariant}
-                    message={snackBarMessage}
-                  />
-                </Snackbar>
-              </div>
-            </Container>
-          </DialogContent>{" "}
-          <div>
-            <hr
-              style={{
-                marginTop: "20px",
-                marginBottom: "0px",
-                borderStyle: "solid",
-                borderColor: "lightgray",
-              }}
-            />
-            <div
-              style={{
-                width: "40px",
-                height: "40px",
-                border: "2px solid lightgray",
-                textAlign: "center",
-                borderRadius: "40px",
-                margin: "-20px auto 20px",
-                lineHeight: "40px",
-                backgroundColor: "white",
-              }}
-            >
-              OR
-            </div>
+          <div className="button">
+            <Typography>Register</Typography>
+            <br />
+            <Typography>Signup With Email</Typography>
           </div>
-          <DialogActions
-            className={`${classes.modalFooter} ${classes.modalFooterCenter}`}
-          >
-            <Button onClick={this.handleClose} variant="outlined">
-              Close
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </Fragment>
+
+          <div className={classes.paper}>
+            <Formik
+              initialValues={values}
+              validationSchema={registrationValidationSchema}
+            >
+              {(props) => <Form {...props} />}
+            </Formik>
+            <Snackbar
+              anchorOrigin={{ vertical: "top", horizontal: "center" }}
+              open={snackBarOpen}
+              onClose={this.onCloseHandler}
+            >
+              <MysnackBar
+                onClose={this.onCloseHandler}
+                variant={snackBarVariant}
+                message={snackBarMessage}
+              />
+            </Snackbar>
+          </div>
+        </Container>
+        <About />
+        <Footer />
+      </div>
     );
   }
 }
@@ -384,7 +283,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  refSignup: (data, user) => dispatch(refSignup(data, user)),
+  refSignup: (data, user, refLink) => dispatch(refSignup(data, user, refLink)),
 });
 
 export default connect(

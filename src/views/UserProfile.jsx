@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { AppBar, withStyles } from "@material-ui/core";
+import { AppBar, Container, withStyles } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
@@ -23,6 +23,7 @@ import { container } from "../assets/jss/material-kit-react";
 import {
   fetchUserProfile,
   userProfileUpdate,
+  fetchAllMyReferrals,
 } from "../actions/action_user_profile";
 import { getFromLocalStorage } from "../helpers/browserStorage";
 
@@ -91,6 +92,20 @@ const styles = (theme) => ({
     textTransform: "uppercase",
     // margin: "auto",
   },
+  border: {
+    border: "1px solid",
+    padding: "0 20px 10px 20px",
+    borderRadius: "10px",
+    fontFamily: "Arial, Helvetica, sans-serif",
+    backgroundColor: "aliceblue",
+  },
+
+  count: {
+    fontWeight: "bold",
+    fontFamily: "Arial, Helvetica, sans-serif",
+    lineHeight: 1.66,
+    letterSpacing: "0.03333em",
+  },
 });
 
 const initialstate = {
@@ -106,6 +121,7 @@ const initialstate = {
   fallback: true,
   erroMessage: "",
   refLink: "",
+  link: "copy link",
 };
 
 class UserProfile extends Component {
@@ -120,10 +136,12 @@ class UserProfile extends Component {
   };
 
   async componentDidMount() {
-    const { fetchUserProfile } = this.props;
+    const { fetchUserProfile, fetchAllMyReferrals } = this.props;
     await fetchUserProfile(
       JSON.parse(getFromLocalStorage("crytoarbitrage-login:user")).profile.id
     );
+    await fetchAllMyReferrals();
+    // JSON.parse(getFromLocalStorage("crytoarbitrage-login:user")).profile.id
     await this.getLink();
   }
 
@@ -151,6 +169,16 @@ class UserProfile extends Component {
         email,
         lastName,
         address,
+      });
+    }
+    if (
+      (newProps.update,
+      "fetchAllMyReferrals" &&
+        typeof newProps.update.fetchAllMyReferrals === "object")
+    ) {
+      const { data } = newProps.update.fetchAllMyReferrals;
+      this.setState({
+        count: data.length,
       });
     } else return null;
   }
@@ -220,7 +248,12 @@ class UserProfile extends Component {
     };
     reader.readAsDataURL(file);
   };
+
   getLink = () => {
+    const FRONTEND_APP_URL =
+      process.env.NODE_ENV === "production"
+        ? process.env.REACT_APP_FRONTEND_APP_URL
+        : "http://localhost:3000";
     try {
       fetch(`${BACKEND_URL}/reflink/?key=${API_KEY}`, {
         method: "GET",
@@ -237,12 +270,18 @@ class UserProfile extends Component {
         .then((res) => res.json())
         .then((response) => {
           this.setState({
-            // refLink: `/register?reflink=${response.data.referralLink}`,
+            refLink: `${FRONTEND_APP_URL}/register?reflink=${response.data.referralLink}`,
           });
         });
     } catch (error) {
       console.log(error);
     }
+  };
+  copyLink = (text) => {
+    this.setState({
+      link: "copied",
+    });
+    navigator.clipboard.writeText(text);
   };
 
   render() {
@@ -261,6 +300,8 @@ class UserProfile extends Component {
       fallback,
       erroMessage,
       refLink,
+      link,
+      count,
     } = this.state;
 
     let $imagePreview = null;
@@ -312,13 +353,13 @@ class UserProfile extends Component {
       <div>
         <CssBaseline />
         <AppBar
-          position="fixed"
+          position="relative"
           style={{ display: "flex" }}
           className={classes.customblue}
         >
           <div className={classes.container}>
             <Typography variant="h5" className={classes.typography}>
-              Cryto<span className={classes.span}>arbitrage</span>
+              Crypto<span className={classes.span}>Arbitrage</span>
             </Typography>
 
             <div>
@@ -326,130 +367,178 @@ class UserProfile extends Component {
             </div>
           </div>
         </AppBar>
-        <Grid container style={{ marginTop: "76px" }}>
-          <GridItem xs={12} sm={12} md={4} style={{ textAlign: "center" }}>
-            <div>
-              <p style={{ color: "red" }}>{erroMessage}</p>
-              {$imagePreview}
-              <CardContent>
-                <h5>{firstName}</h5>
-                <input
-                  accept="image/*"
-                  className={classes.input}
-                  id="raised-button-file"
-                  multiple
-                  type="file"
-                  name="file"
-                  onChange={this.onChangeHandler}
-                />
-                <label>
-                  <Button
-                    color="primary"
-                    variant="outlined"
-                    component="span"
-                    onClick={this.onClickHandler}
-                  >
-                    Save image
-                  </Button>
-                </label>
-              </CardContent>
-            </div>
-          </GridItem>
-        </Grid>
-        <Grid container>
-          <GridItem xs={12} sm={12} md={8}>
-            <div>
-              <CardHeader
-                color="primary"
-                title="Edit Profile"
-                subheader=" Complete your profile"
-              >
-                <h4>Edit Profile</h4>
-                <p>Complete your profile</p>
-              </CardHeader>
-              <CardContent>
-                <Grid container>
-                  <GridItem xs={12} sm={12} md={6}>
-                    <TextField
-                      id="firstName"
-                      label="First Name"
-                      className={classes.textField}
-                      value={firstName}
-                      onChange={this.handleChange}
-                      margin="normal"
+        <Container>
+          <Grid
+            container
+            style={{ marginTop: "76px", backgroundColor: "color" }}
+          >
+            <GridItem xs={12} sm={12} md={6} style={{ textAlign: "center" }}>
+              <div>
+                <p style={{ color: "red" }}>{erroMessage}</p>
+                {$imagePreview}
+                <CardContent>
+                  <h3>{firstName}</h3>
+                  <input
+                    accept="image/*"
+                    className={classes.input}
+                    id="raised-button-file"
+                    multiple
+                    type="file"
+                    name="file"
+                    onChange={this.onChangeHandler}
+                  />
+                  <label>
+                    <Button
+                      color="primary"
                       variant="outlined"
-                      name="firstName"
-                      fullWidth
-                      required
-                    />
-                  </GridItem>
-                  <GridItem xs={12} sm={12} md={6}>
-                    <TextField
-                      id="lastName"
-                      label="Last Name"
-                      className={classes.textField}
-                      value={lastName}
-                      onChange={this.handleChange}
-                      margin="normal"
-                      variant="outlined"
-                      name="lastName"
-                      fullWidth
-                      required
-                    />
-                  </GridItem>
-                  <GridItem xs={12} sm={12} md={6}>
-                    <TextField
-                      id="email"
-                      label="Email Address"
-                      className={classes.textField}
-                      value={email}
-                      onChange={this.handleChange}
-                      margin="normal"
-                      variant="outlined"
-                      name="email"
-                      fullWidth
-                      required
-                    />
-                  </GridItem>
+                      component="span"
+                      onClick={this.onClickHandler}
+                    >
+                      Save image
+                    </Button>
+                  </label>
+                </CardContent>
+              </div>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={6}>
+              <div className={classes.border}>
+                <br />
+                <br />
+                <div style={{ textAlign: "center" }}>
+                  <Typography variant="h6">Referral Bonus</Typography>
+                </div>
+                <br />
+                <br />
+                <Typography>Your Referral Link</Typography>
 
-                  <GridItem xs={12} sm={12} md={6}>
-                    <TextField
-                      id="address"
-                      label="Home Address"
-                      className={classes.textField}
-                      value={address}
-                      onChange={this.handleChange}
-                      margin="normal"
-                      variant="outlined"
-                      name="address"
-                      fullWidth
-                      required
-                    />
-                  </GridItem>
-                </Grid>
-              </CardContent>
-              <CardActions>
+                <TextField variant="outlined" fullWidth value={refLink} />
                 <Button
                   color="primary"
-                  onClick={this.updateUserProfile}
                   variant="outlined"
+                  onClick={() => this.copyLink(`${refLink}`)}
                 >
-                  Update Profile
+                  {link}
                 </Button>
-                <Button variant="outlined" color="primary" href="/buycrypto">
-                  Buy Crypto
-                </Button>
-              </CardActions>
-            </div>
-          </GridItem>
-        </Grid>
-        <br />
-        <div style={{ textAlign: "center" }}>
-          <Typography variant="caption">
-            {/* Referral Link : <a href={refLink}>{refLink}</a> */}
-          </Typography>
-        </div>
+                <Typography variant="body2">
+                  You can earn referral rewards up to 12% from three levels
+                </Typography>
+                <br />
+                <br />
+                <Grid container>
+                  <GridItem xs={4} sm={4} md={4}>
+                    <Typography className={classes.count}>Level 1</Typography>
+                    <Typography className={classes.count}>
+                      5% reward <br />
+                      Total Referrals:{count}
+                    </Typography>
+                  </GridItem>
+                  <GridItem xs={4} sm={4} md={4}>
+                    <Typography className={classes.count}>Level 2</Typography>
+                    <Typography className={classes.count}>
+                      4% reward <br />
+                      Total Referrals:0
+                    </Typography>
+                  </GridItem>
+                  <GridItem xs={4} sm={4} md={4}>
+                    <Typography className={classes.count}>Level 3 </Typography>
+                    <Typography className={classes.count}>
+                      3% reward <br />
+                      Total Referrals:0
+                    </Typography>
+                  </GridItem>
+                </Grid>
+              </div>
+            </GridItem>
+          </Grid>
+          <Grid container>
+            <GridItem xs={12} sm={12} md={8}>
+              <div>
+                <CardHeader
+                  color="primary"
+                  title="Edit Profile"
+                  subheader=" Complete your profile"
+                >
+                  <h4>Edit Profile</h4>
+                  <p>Complete your profile</p>
+                </CardHeader>
+                <CardContent>
+                  <Grid container>
+                    <GridItem xs={12} sm={12} md={6}>
+                      <TextField
+                        id="firstName"
+                        label="First Name"
+                        className={classes.textField}
+                        value={firstName}
+                        onChange={this.handleChange}
+                        margin="normal"
+                        variant="outlined"
+                        name="firstName"
+                        fullWidth
+                        required
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={12} md={6}>
+                      <TextField
+                        id="lastName"
+                        label="Last Name"
+                        className={classes.textField}
+                        value={lastName}
+                        onChange={this.handleChange}
+                        margin="normal"
+                        variant="outlined"
+                        name="lastName"
+                        fullWidth
+                        required
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={12} md={6}>
+                      <TextField
+                        id="email"
+                        label="Email Address"
+                        className={classes.textField}
+                        value={email}
+                        onChange={this.handleChange}
+                        margin="normal"
+                        variant="outlined"
+                        name="email"
+                        fullWidth
+                        required
+                      />
+                    </GridItem>
 
+                    <GridItem xs={12} sm={12} md={6}>
+                      <TextField
+                        id="address"
+                        label="Home Address"
+                        className={classes.textField}
+                        value={address}
+                        onChange={this.handleChange}
+                        margin="normal"
+                        variant="outlined"
+                        name="address"
+                        fullWidth
+                        required
+                      />
+                    </GridItem>
+                  </Grid>
+                </CardContent>
+                <CardActions>
+                  <Button
+                    color="primary"
+                    onClick={this.updateUserProfile}
+                    variant="outlined"
+                  >
+                    Update Profile
+                  </Button>
+                  <Button variant="outlined" color="primary" href="/buycrypto">
+                    Buy Crypto
+                  </Button>
+                </CardActions>
+              </div>
+            </GridItem>
+          </Grid>
+        </Container>
+        <br />
         <br />
         <div className={classes.root}>
           <Grid container>
@@ -481,6 +570,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchUserProfile: () => dispatch(fetchUserProfile()),
+  fetchAllMyReferrals: () => dispatch(fetchAllMyReferrals()),
   userProfileUpdate: (data) => dispatch(userProfileUpdate(data)),
 });
 

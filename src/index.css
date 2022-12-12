@@ -103,3 +103,14 @@ td {
 tr:hover {
   background-color: #386597;
 }
+
+.button {
+  color: #595959;
+  margin: 0px;
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: normal;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
+}

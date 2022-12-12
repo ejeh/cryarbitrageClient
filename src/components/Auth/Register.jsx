@@ -256,7 +256,7 @@ class Register extends Component {
               position: "relative",
             }}
           >
-            Register
+            Register (Refer & Earn)
           </Typography>
         </div>
         <Dialog

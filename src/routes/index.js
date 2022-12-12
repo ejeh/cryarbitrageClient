@@ -3,7 +3,6 @@ import Loadable from "react-loadable";
 import { Redirect } from "react-router-dom";
 import { userIs } from "../components/Auth/AccessControl";
 import ResetPasswordPage from "../views/ResetPasswordPage/ResetPassword";
-import { BACKEND_URL } from "../actions/api";
 
 const loading = () => <div></div>;
 const LandingPage = Loadable({

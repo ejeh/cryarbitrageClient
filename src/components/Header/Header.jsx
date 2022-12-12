@@ -145,7 +145,7 @@ const Header = (props) => {
       <AppBar className={appBarClasses}>
         <Toolbar className={classes.container}>
           <Typography variant="h5" className={styleClass.typography}>
-            Cryto<span className={styleClass.span}>arbitrage</span>
+            Crypto<span className={styleClass.span}>Arbitrage</span>
           </Typography>
 
           <div className={styleClass.buttonCollapse}>
@@ -166,7 +166,7 @@ const Header = (props) => {
               Contact
             </Button>
             <Button className={styleClass.button} href="/buycrypto">
-              Buy Cryto (Start arbitrage)
+              Buy Crypto (Start arbitrage)
             </Button>
           </div>
 

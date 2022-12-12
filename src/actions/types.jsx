@@ -6,3 +6,4 @@ export const USER_PROFILE_UPDATE = "user_profile_update";
 export const FETCH_USER_PROFILE = "fetch_user_profile";
 export const BUY_CRYTO = "buy_cryto";
 export const RESET_PASSWORD = "reset_password";
+export const FIND_ALL_REF_USER = "find_all_referred_user";
