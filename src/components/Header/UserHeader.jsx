@@ -72,7 +72,11 @@ const UserHeader = (props) => {
         onClick={handleToggle}
       >
         <Avatar alt="User Avatar" src={image} />
-        {open ? <ArrowDropUp /> : <ArrowDropDown />}
+        {open ? (
+          <ArrowDropUp style={{ color: "white" }} />
+        ) : (
+          <ArrowDropDown style={{ color: "white" }} />
+        )}
       </Button>
       <Popper
         open={open}
